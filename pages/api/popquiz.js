@@ -2,8 +2,8 @@ const contentful = require('contentful')
 
 export default async function handler(req, res) {
   const client = contentful.createClient({
-    space: '9qikiz50jlc8',
-    accessToken: '_3RXK8EOROEf4mPONA9fqk1Rw_gmlm9uzVd726LBTA0'
+    space: process.env.SPACE,
+    accessToken: process.env.ACCESSTOKEN
   })
   const list_matpel = ['Matematika', 'Fisika', 'Kimia', 'Biologi', 'TPS']
 

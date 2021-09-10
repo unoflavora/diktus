@@ -1,10 +1,11 @@
-import { Button, FormControl, TextField, InputAdornment, IconButton} from '@material-ui/core';
+import { Button, CircularProgress, FormControl, TextField, InputAdornment, IconButton} from '@material-ui/core';
 import { useState } from 'react';
 import { useRouter } from 'next/router'
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import loginService from '../services/login'
-import appService from '../services/app'
+import appService from '../services/mongodb'
+
 
 export default function Login() {
   const[values, setValue] = useState({
@@ -13,19 +14,21 @@ export default function Login() {
     showPassword: false
   })
 
-  const [message, setMessage] = useState({
-    information: null,
-    error: null
+  const [error, setError] = useState({
+    status: false,
+    message: ''
   })
 
   const[user, setUser] = useState(null);
+
+  const[loading, setLoading] = useState(false)
 
   const handleChange = (prop) => (event) => {
     setValue({ ...values, [prop]: event.target.value });
   };
 
   const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
+    setValue({ ...values, showPassword: !values.showPassword });
   };
 
   const handleMouseDownPassword = (event) => {
@@ -36,10 +39,20 @@ export default function Login() {
 
   const loginHandler = async (event) => {
     event.preventDefault();
+    setLoading(true)      
     try {
-      const request = await loginService(values.username, values.password);
-      const response = await request.json()
-      console.log(response)
+      const res = await loginService(values.username, values.password)
+      
+      if (res.status === 401) {
+        setError({status:true, message: 'Username/Password Salah!'})
+        setTimeout(() => {
+          setError({status: false, message: ''})
+        }, 3000)
+        setLoading(false)      
+        return
+      }
+
+      const response = await res.json()
       appService.setToken(response.token);
       window.localStorage.setItem(
         "loggedUser",
@@ -47,15 +60,18 @@ export default function Login() {
       );
       setUser(response);
       setValue({username:'', password:''});
-      if (response) {
+      if (res.ok) {
         router.push('/popquiz')
       }
+      setLoading(false)      
     } catch (error) {
-      console.log(error);
+      console.log(error)
+      setError({status:true, message: error.message})
+      setLoading(false)      
     }
   };
 
-  const center ='bg-blue-100 flex flex-wrap w-full h-screen justify-center content-center'
+  const center ='bg-blue-100 flex flex-col flex-wrap w-full h-screen justify-center content-center'
 
   return (
     <div className={`${center}`}>
@@ -79,21 +95,17 @@ export default function Login() {
               )}}
             />
           <Button onClick={loginHandler} type="submit" fullWidth  variant="contained" color="primary">
-            Register
+            {loading ? <CircularProgress color='white'/> : 'Login'}
           </Button>
         </form>
       </FormControl>
-      {message.information && 
+      {error.status && 
         <div className={'text-xl font-bold'}>
-          {message.information}
-        </div>
-      }
-      {message.information && 
-        <div className={'text-xl font-bold'}>
-          {message.information}
+          {error.message}
         </div>
       }
       </div>  
     </div>
+    
   )
 }

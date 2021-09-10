@@ -1,5 +1,4 @@
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
-import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio} from '@material-ui/core';
 import {useState, useEffect} from 'react'
 
 export default function SoalItem({soal, answers, handleAnswer, answered, handleAnswered}) {
@@ -26,7 +25,8 @@ export default function SoalItem({soal, answers, handleAnswer, answered, handleA
     setValue(answers)
   }
 
-  const submitHandler = () => {
+  const submitHandler = (event) => {
+    event.preventDefault()
     const newJawaban = {...answer}
     const jawaban = konten.jawaban[0]
     if (jawaban === value[konten.name]) {
@@ -37,8 +37,6 @@ export default function SoalItem({soal, answers, handleAnswer, answered, handleA
     setAnswers(newJawaban)
     handleAnswered(answer)
   }
-
-  console.log(konten)
   
   const CurrentSkor = () => {
     return (
@@ -48,27 +46,38 @@ export default function SoalItem({soal, answers, handleAnswer, answered, handleA
     )
   }
 
+
   return (
     <div key={konten.name}>
-      <h1>{konten.materiUmum}</h1>
-      <div dangerouslySetInnerHTML=
+
+      <h1 className='text-xl font-semibold'>{konten.materiUmum}</h1>
+      <div className='text-2xl' dangerouslySetInnerHTML=
         {{__html:documentToHtmlString(konten.soal.content[0])
         }} />
-      <br/>
-      <FormControl component="fieldset">
-      <FormLabel component="legend">Jawaban</FormLabel>
-        <RadioGroup aria-label="jawaban" name="jawaban" value={value[konten.name]} onChange={handleChange}>
-          {konten.pilihanGanda.map(pg => {
-            return (<FormControlLabel key={pg} value={pg} control={<Radio/>} disabled={Object.keys(answer).includes(konten.name)} label={pg}/>)
-          })}
-        </RadioGroup>
-        <button type='submit' onClick={submitHandler}>Submit</button>
-      </FormControl>
-      <br/>
+
+      <div>
+      <form onSubmit={submitHandler} onChange={handleChange}  value={value[konten.name]}>
+        {konten.pilihanGanda.map(pg => {
+          return (
+          <div className='text-xl'>
+          <label>
+            <input type='radio' name={'pg'}  key={pg} value={pg} checked={value[konten.name] === pg && 'checked'} disabled={Object.keys(answer).includes(konten.name)}/>
+              {pg}
+          </label>
+          </div>
+          )
+        })}
+        <button type='submit' className='border-2'>Submit</button>
+      </form>
+      </div>
+
+      <div>
       {konten.name in answer &&
        <div dangerouslySetInnerHTML=
        {{__html:documentToHtmlString(konten.pembahasan.content[0])
        }} />}
+      </div>
+
        <div>
          <CurrentSkor />
        </div>

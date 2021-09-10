@@ -3,8 +3,8 @@ const contentful = require('contentful')
 export default async function handler(req, res) {
   const {matpel} = JSON.parse(req.body)
   const client = contentful.createClient({
-    space: '9qikiz50jlc8',
-    accessToken: '_3RXK8EOROEf4mPONA9fqk1Rw_gmlm9uzVd726LBTA0'
+    space: process.env.SPACE,
+    accessToken: process.env.ACCESSTOKEN
   })
   const req_matpel = matpel[0].toUpperCase() + matpel.substring(1)
   console.log(req_matpel)
