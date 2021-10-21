@@ -1,0 +1,32 @@
+1. correct :{matpel:[kode]}
+2. false :{matpel:[kode]}
+3. time:
+4. XP:
+
+A. Analisis Materi
+1. Request data user ke server 
+2. Request data jumlah soal ke server.
+3. Hitung berapa jawaban benar dan salah user dalam setiap materi (regex)
+4. Simpan data dalam readable format di client.
+5. Visualisasikan dalam grafik.
+
+B. Mengerjakan soal Pop Quiz
+1. Request data user ke server
+2. Request data soal ke server berdasarkan kode.  == DISTINCTIVE
+   A. Jika sudah mengerjakan dan salah, prioritaskan (70%).
+   B. Random (30%)
+3. Mulai track time berapa lama keluar dalam soal
+4. Jika benar, update data correct. (+100XP)
+5. Jika salah, update data salah. (+50XP)
+6. Akhiri track time jika sudah selesai/user keluar
+
+C. Mengerjakan soal Materi
+1. Request data user ke server
+2. Request data soal ke server berdasarkan materi.  == DISTINCTIVE
+   A. Jika sudah mengerjakan dan salah, prioritaskan (70%).
+   B. Random (30%)
+   C. Acak soal
+3. Track time berapa lama siswa mengerjakan
+4. Jika benar, update XP (+100)
+5. Jika salah, update XP (+50)
+6. Akhiri track time jika sudah selesai/user keluar

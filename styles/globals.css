@@ -1,13 +1,15 @@
 @tailwind base;
+@layer base {}
 @tailwind components;
 @tailwind utilities;
 
-html,
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sniglet&display=swap');html,
+
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
@@ -17,4 +19,8 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.graph {
+  width: 50rem;
 }

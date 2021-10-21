@@ -1,7 +1,6 @@
-import SoalItemTes from '../../components/SoalItem'
-import Navbar from '../../components/navbar/Navbar'
+import SoalItemTes from './components/SoalItem'
 import Head from 'next/head'
-import tokenCheck from '../../services/tokenCheck'
+import tokenCheck from '../services/tokenCheck'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
@@ -30,7 +29,7 @@ export default function Home({data}) {
   const [pageNumber, setPageNumber] = useState(1)
   const [answers, setAnswers] = useState({})
   const [answered, setAnswered] = useState({})
-  const [user, setUser] = useState({})  
+  const [user, setUser] = useState({})
   const [skor, setSkor] = useState(0)
   const router = useRouter()
 
@@ -65,7 +64,7 @@ export default function Home({data}) {
       setPageNumber(pageNumber - 1)
     }
   }
-
+  
   const soalSelector = (soal) => {
     return( 
       <SoalItemTes 
@@ -76,7 +75,7 @@ export default function Home({data}) {
         handleAnswered={handleAnswered}
         skor={skor}
         setSkor={setSkor}
-        handleNext={handleNext}
+        handleNext ={handleNext}
         handlePrevious={handlePrevious}
       />
     )
@@ -93,7 +92,7 @@ export default function Home({data}) {
       </Head>
       <main>
       <div className='h-16 px-5'>
-        <Navbar user={user}/>
+        <h1>Semangat {user.nama}!</h1>
       </div>
       <div className='grid grid-rows-2 gap-2 h-14 px-5 xl:px-40 py-2 bg-gray-100 font-poppins text-sm text-ungu-teks'>
         Questions {pageNumber}/{soals.length}
@@ -102,25 +101,10 @@ export default function Home({data}) {
         </div>
       </div>
        <div className='h-screen px-16 xl:px-40 overflow-scroll'>
-          <div className='pt-6'>
+          <div className='pt-6 flex flex-col justify-center'>
             {soals[pageNumber-1]}
-          </div>
-          <div className='flex flex-row gap-3'>
-            <button onClick={() => {
-              if (pageNumber === 1) {
-                null
-              } else {
-                setPageNumber(pageNumber - 1)
-              }}
-            } className='w-min border-ungu-gelap text-ungu-teks border-2 py-2 px-5 rounded-full font-poppins text-sm'>Previous</button>
-            {data[pageNumber - 1].kode in answered &&
-            <button onClick={() => {
-                setPageNumber(pageNumber + 1)
-              }} 
-            className='w-min bg-ungu-gelap text-white border-2 py-2 px-5 rounded-full font-poppins text-sm'>Next</button>}
+          </div>         
        </div>
-       </div>
-
       </main>
     </div>
   )

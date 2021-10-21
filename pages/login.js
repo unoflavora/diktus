@@ -61,7 +61,7 @@ export default function Login() {
       setUser(response);
       setValue({username:'', password:''});
       if (res.ok) {
-        router.push('/popquiz')
+        router.push('/')
       }
       setLoading(false)      
     } catch (error) {
@@ -95,7 +95,7 @@ export default function Login() {
               )}}
             />
           <Button onClick={loginHandler} type="submit" fullWidth  variant="contained" color="primary">
-            {loading ? <CircularProgress color='white'/> : 'Login'}
+            {loading ? <CircularProgress color='white' size={20} /> : 'Login'}
           </Button>
         </form>
       </FormControl>

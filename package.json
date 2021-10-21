@@ -9,20 +9,31 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^1.5.0",
     "@contentful/rich-text-html-renderer": "^15.2.0",
     "@material-tailwind/react": "0.3.4",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
+    "axios": "^0.22.0",
     "bcrypt": "^5.0.1",
+    "chart.js": "^3.5.1",
+    "chartjs-plugin-datalabels": "^2.0.0",
     "contentful": "^8.5.3",
     "contentful-management": "^7.36.2",
+    "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.5",
     "mongoose-unique-validator": "^2.0.3",
     "next": "11.1.2",
+    "nprogress": "^0.2.0",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-chartjs-2": "^3.1.0",
+    "react-circular-progressbar": "^2.0.4",
+    "react-dom": "17.0.2",
+    "react-icons": "^4.2.0",
+    "react-slick": "^0.28.1",
+    "react-slideshow-image": "^3.5.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.3.4",

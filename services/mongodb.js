@@ -30,8 +30,15 @@ const setToken = (newToken) => {
 }
 
 const userValidation = async () => {
-  return await fetch(baseUrl(user), {
-    headers: { Authorization: token }
+  return await fetch(baseUrl('tokenAuth'), {
+    method: 'POST',
+    body: 
+      JSON.stringify({
+        jwt: token
+      }),
+    headers: {
+      'Authorization': token
+    }
   })
 }
 
