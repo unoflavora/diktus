@@ -46,8 +46,6 @@ export default function Soal({data, id}) {
   const soalSoal = data.map((item, index) => soalSelector(item, index))
   const soals = [].concat.apply([],soalSoal)
 
-
-
   return (
     <>
       <div className='grid grid-rows-2 gap-2 h-14 md:h-16 px-5 lg:px-28 xl:px-40 py-2 bg-gray-100 font-poppins font-semibold text-sm md:text-lg text-ungu-teks'>

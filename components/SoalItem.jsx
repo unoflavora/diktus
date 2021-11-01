@@ -16,7 +16,7 @@ export default function SoalItem({soal, last, begin,
   const [answer, setAnswers] = useState(answered)
   const [cskor, csetSkor] = useState(0)
   const [ternilai, setTernilai] = useState([])
-  const {handleCorrect, handleFalse} = useXP()
+  const {handleCorrect, handleFalse, updateLatihanMingguIni} = useXP()
 
   const konten = soal
   const PGkepanjangan = konten.pilihanGanda.some((pg) => pg.length > 100)
@@ -124,7 +124,7 @@ export default function SoalItem({soal, last, begin,
               </button>
             { finished ? 
              <button type='button' 
-             onClick={() => router.back()}
+             onClick={() => {updateLatihanMingguIni().then(router.back())}}
              className=' bg-ungu-gelap text-white border-2 py-2 px-10 
              rounded-2xl font-poppins text-base'>
                Selesai

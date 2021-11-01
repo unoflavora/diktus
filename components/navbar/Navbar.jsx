@@ -40,6 +40,10 @@ export default function Navbar(props) {
           <div className='border-l-2 border-gray-300'>
             <div className=' flex flex-row items-center gap-1 px-8 '>
             {user ?  
+            <div className='flex gap-2 items-center'>
+                <div className='hidden bg-ungu-terang rounded-2xl p-2 px-3 lg:block font-poppins'>
+                    {user ? `${xp}XP` : null}
+                </div>
               <button 
                 onClick={() => showSetting(!setting)}
                 className='relative text-lg rounded-full flex flex-row gap-3 items-center hover:bg-purple-200 bg-ungu-terang text-ungu-gelap p-1 px-4'>
@@ -56,15 +60,12 @@ export default function Navbar(props) {
                     <img className='rounded-full' src={user.picture}/>
                   </div>
                 {user.userProfile}
-                <div className='flex flex-row gap-1 '>
                   <div className='font-poppins'>
                     {user.nickname}
                   </div>
-                  <div className='font-poppins'>
-                  {user ? `| ${xp}XP` : null}
-                  </div>
-                </div>
-              </button> 
+                </button>
+ 
+              </div>
               :
               <div className='flex flex-row items-center gap-10'>
                 <div className='py-4 md:py-2 px-8  font-poppins text-white bg-ungu-gelap rounded-full'>

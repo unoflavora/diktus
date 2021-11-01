@@ -1,11 +1,34 @@
+import moment from 'moment';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 import "react-circular-progressbar/dist/styles.css";
 
-const Tujuan = () => {
-  const TryOut = '1 Minggu Lagi'
-  const Latihan = '4 Bab Lagi'
-  const PopQuiz = '1 Pop Quiz'
-  const TO = 60;
+const TARGETTRYOUT = 7
+const TARGETLATIHAN = {
+  'low': 5,
+  'med': 4,
+  'high': 3,
+}
+
+
+const Tujuan = ({metadata}) => {
+  const target = metadata.today
+  const score = (metadata.target - metadata.skor) / 100
+
+  const to = moment().diff(moment(target.TryOut, 'DD-MM-YYYY'), 'days') 
+  const latihan = score < 25 ? 2 : 
+                  score > 25 && score < 50 ? TARGETLATIHAN.high :
+                  score > 50 && score < 75 ? TARGETLATIHAN.med :
+                  TARGETLATIHAN.low
+  const popquiz =  moment().diff(moment(target.PopQuiz, 'DD-MM-YYYY'), 'days') > 1 ? 0 : 1
+
+
+  const TryOut =  to > TARGETTRYOUT ? 'Ayo Kerjakan' : `Selesai! Kerjakan TO ${7-to} Hari Lagi`
+  const Latihan =  latihan - target.Latihan.value === 0 ? 'Selesai, Kerjakan Lagi Besok Ya!' : `${latihan - target.Latihan.value} Bab Lagi`
+  const PopQuiz = popquiz < 1 ? 'Ayo Kerjakan 1 Popquiz Per Hari' : 'Selesai! Kerjakan lagi hari esok ya'
+
+  const TO = to > TARGETTRYOUT ? 0: 100
+  const LATIHAN = target.Latihan.value/latihan * 100
+  const POPQUIZ = popquiz / 1
 
   const style = {
     card: 'flex  justify-between items-end xl:items-center p-5 md:py-5 xl:py-8 md:px-5 gap-2 bg-white rounded-2xl',
@@ -15,8 +38,8 @@ const Tujuan = () => {
   }
 
   return(
-    <div className='flex flex-col px-5 xl:px-14 gap-5 rounded-3xl py-10 xl:py-0 xl:pb-10 '>
-    <div className='bg-gray-50 xl:px-24 xl:py-10 rounded-3xl'>
+    <div className='flex flex-col bg-gray-50 xl:bg-white px-5 xl:px-14 gap-5 rounded-3xl py-10 xl:py-0 xl:pb-10 '>
+    <div className=' xl:bg-gray-50 xl:px-24 xl:py-10 rounded-b-3xl'>
     <h2 className='font-bold text-xl'>Target Hari Ini</h2>
     <div className='flex flex-col lg:grid lg:grid-cols-3 gap-3'>
     <div className={style.card}>
@@ -39,9 +62,9 @@ const Tujuan = () => {
       </div> 
       <div className='w-16 h-16'>
       <CircularProgressbar
-        value={TO}
+        value={LATIHAN}
         strokeWidth={10}
-        text={`${TO}%`}
+        text={`${LATIHAN}%`}
         styles={buildStyles({
           pathColor: "green",
         })}
@@ -55,9 +78,9 @@ const Tujuan = () => {
       </div> 
       <div className='w-16 h-16'>
         <CircularProgressbar
-          value={TO}
+          value={POPQUIZ}
           strokeWidth={10}
-          text={`${TO}%`}
+          text={`${POPQUIZ}%`}
           styles={buildStyles({
             pathColor: "orange",
           })}

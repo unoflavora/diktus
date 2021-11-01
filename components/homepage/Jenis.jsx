@@ -28,7 +28,7 @@ export default function Jenis() {
           <div className='absolute -right-10 -bottom-5 xl:hidden transform -rotate-45'>
             <Vector/>
           </div>
-          <a href='/try-out'>
+          <a href='/tryout'>
             <Poin fitur
               poin='Try-Out UTBK'
               desc='Lakukan simulasi ujian penuh untuk mengukur kemampuan kamu saat ini'

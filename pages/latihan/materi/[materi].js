@@ -4,6 +4,7 @@ import { useUser } from '@auth0/nextjs-auth0';
 import Soal from '../../../components/Materi/Soal'
 import Navbar from '../../../components/navbar/Navbar'
 import Footer from '../../../components/Footer/Footer'
+import { useXP } from '../../../components/Context/XpContext';
 
 export default function Materi({data}) {
   const { user, error, isLoading } = useUser();

@@ -13,6 +13,7 @@ module.exports = {
       colors: {
         ungu:{
           light: '#AFADCC',
+          cal: '#5B598E',
           terang: '#F2F1FF',
           teks: '#333333',
           gelap: '#2F2B71',
