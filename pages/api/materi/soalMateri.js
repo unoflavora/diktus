@@ -2,12 +2,12 @@ import SoalDB from '../models/soalDb'
 import dbConnect from '../../../lib/dbConnect'
 
 export default async function handler(request, response) {
-  const {materi} = JSON.parse(request.body)
+  const {mataPelajaran, materi} = JSON.parse(request.body)
 
   await dbConnect()
   console.log('MongoDB Connected')
   try {
-    const res = await SoalDB.find({'mataPelajaran': 'Biologi'})
+    const res = await SoalDB.find({'mataPelajaran':mataPelajaran})
     const data = res[0]['materi'][materi]
     const submateriList = Object.keys(data)
     let finalData = []

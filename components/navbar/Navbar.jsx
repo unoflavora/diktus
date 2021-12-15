@@ -10,19 +10,24 @@ import { useRouter } from 'next/router'
 import { useXP } from '../Context/XpContext'
 
 
+
 export default function Navbar(props) {
   const [show, setShow] = useState(false)
   const [setting, showSetting] = useState(false)
+  const [showLatihan, setShowLatihan] = useState(false)
   const {user} = useUser()
   const {xp} = useXP()
   const wrapperRef = useRef(null);
+  const latihanRef = useRef(null)
   const router = useRouter()
 
   useOutsideDetector(wrapperRef, () => showSetting(false))
+  useOutsideDetector(latihanRef, () => setShowLatihan(false))
+
 
 
   return(
-    <div className='sticky z-50 top-0 p-2 px-6 xl:py-4 xl:px-32 xl:text-xl  bg-white'>
+    <div className='sticky z-50 top-0 p-2 px-6 xl:py-4 xl:px-10 xl:text-xl bg-white'>
     <nav className='relative xl:px-10 w-full'>
       <div className='flex items-center justify-between'>
       <Link href='/'>
@@ -32,7 +37,20 @@ export default function Navbar(props) {
       </Link>
 
         <div className='hidden md:flex flex-row font-poppins items-center lg:text-lg text-xl gap-8 pl-10'>
-          <p>Latihan</p>
+          <button className='relative' onClick={() => setShowLatihan(!showLatihan)}>Latihan
+              <div ref={latihanRef} className={`${showLatihan ? 'block opacity-100' : 'hidden opacity-0'}
+                transition-opacity
+                absolute -left-1/2 -bottom-24 rounded-2xl  
+                flex flex-col items-center
+                bg-white border-2  text-ungu-gelap`}>
+              <Link href='/tryout'>
+                <a className='w-full h-full py-2 px-10 rounded-t-2xl  hover:bg-purple-200'>Tryout</a>
+              </Link>
+              <Link href='/latihan'>
+                <a className='w-full h-full py-2 px-10 rounded-b-2xl  hover:bg-purple-200'>Materi</a>
+              </Link>
+            </div> 
+          </button>
           <Link href='/analisis'>
             <a>Analisis</a>
           </Link>
@@ -41,20 +59,23 @@ export default function Navbar(props) {
             <div className=' flex flex-row items-center gap-1 px-8 '>
             {user ?  
             <div className='flex gap-2 items-center'>
-                <div className='hidden bg-ungu-terang rounded-2xl p-2 px-3 lg:block font-poppins'>
-                    {user ? `${xp}XP` : null}
-                </div>
+              <button className='hidden hover:bg-purple-200 bg-ungu-terang rounded-2xl p-2 px-3 lg:block font-poppins'>
+                  {user ? `${xp}XP` : null}
+              </button>
               <button 
                 onClick={() => showSetting(!setting)}
                 className='relative text-lg rounded-full flex flex-row gap-3 items-center hover:bg-purple-200 bg-ungu-terang text-ungu-gelap p-1 px-4'>
-                  <div ref={wrapperRef} className={`${setting ? 'opacity-100' : 'opacity-0'}
+                  <div ref={wrapperRef} className={`${setting ? 'block opacity-100' : 'hidden opacity-0'}
                      transition-opacity
                      absolute left-0 -bottom-24 rounded-2xl  
                      flex flex-col items-center
                      bg-white border-2  text-ungu-gelap`}>
-                    <p className='w-full h-full py-2 px-10 rounded-t-2xl  hover:bg-purple-200'>Profile</p>
-                    <p onClick={() => router.push('/api/auth/logout')}
-                      className='w-full h-full py-2 px-10 rounded-b-2xl hover:bg-purple-200'>Logout</p>
+                    <Link href='/profile'>
+                    <a 
+                      className='w-full h-full py-2 px-10 rounded-t-2xl  hover:bg-purple-200'>Profile</a>
+                    </Link>
+                    <button onClick={() => router.push('/api/auth/logout')}
+                      className='w-full h-full py-2 px-10 rounded-b-2xl hover:bg-purple-200'>Logout</button>
                   </div> 
                   <div className='rounded-full w-10 h-10 border-2'>
                     <img className='rounded-full' src={user.picture}/>
@@ -64,7 +85,8 @@ export default function Navbar(props) {
                     {user.nickname}
                   </div>
                 </button>
- 
+                
+              
               </div>
               :
               <div className='flex flex-row items-center gap-10'>
@@ -97,3 +119,4 @@ export default function Navbar(props) {
     </div>
   )
 }
+

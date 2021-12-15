@@ -89,17 +89,58 @@ async function updateLatihan(resetToday, user_id) {
     }
   }
 
-  const res = await axios.request(options)
-  console.log(res)
-  return(res.data.user_metadata.target)
+  await axios.request(options)
 }
 
+async function updateHasil(user_id, tipe, data) {
+  let oldData = await get(user_id)
 
+  let newData = {...oldData, 'TPS': data['TPS'], skor: data.skor, nilai: data.nilai}
 
+  newData[tipe] = data[tipe]
 
+  if(tipe === 'Saintek') {
+    ['Biologi', 'Fisika', 'Kimia', 'Matematika'].map(matpel => newData[matpel] = data[matpel])
+  } else {
+    ['Sejarah', 'Ekonomi', 'Geografi', 'Sosiologi'].map(matpel => newData[matpel] = data[matpel])
+  }
+
+  let tps = [  "Kemampuan Penalaran Umum",
+  "Kemampuan Memahami Bacaan dan Menulis",
+  "Pengetahuan dan Pemahaman Umum",
+  "Pengetahuan Kuantitatif"]
+
+  tps.map(matpel => {
+    newData[matpel] = data[matpel] || 0
+  })
+
+  newData.mark[data.date] = data.skor
+  newData.today.TryOut = data.date
+  newData['nilai'] = {...data['Saintek'], ...data['TPS']}
+
+  let options = {
+    method: 'PATCH',
+    url: `https://diktus.jp.auth0.com/api/v2/users/${user_id}`,
+    headers: {
+      authorization: `Bearer ${process.env.AUTH0_TOKENTEST} `, 
+      'content-type': 'application/json'
+    },
+    data: {
+      user_metadata: {...newData},
+    }
+  }
+  
+
+  try {
+    const res = await axios.request(options)
+    return(res.data.user_metadata.target)
+  } catch(e) {
+    console.log(e.message)
+  }
+}
 
 const exports = {
-  get, updateXP, updateTarget, updateTanggalTes, updateLatihan
+  get, updateXP, updateTarget, updateTanggalTes, updateLatihan, updateHasil
 }
 
 const user = {

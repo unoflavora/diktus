@@ -5,12 +5,14 @@ import { useXP } from './Context/XpContext';
 import { useRouter } from 'next/router'
 
 import 'react-slideshow-image/dist/styles.css'
+import useMath from './hooks/useMath';
 
 export default function SoalItem({soal, last, begin,
   handleNext, handlePrevious, answers, handleAnswer, 
   answered, handleAnswered, id, finished}) 
 {
   const router = useRouter()
+  useMath()
 
   const [value, setValue] = useState(answers)
   const [answer, setAnswers] = useState(answered)
@@ -57,6 +59,7 @@ export default function SoalItem({soal, last, begin,
       console.log(e)
     }
   }
+
 
   const soalStyle = 'grid grid-cols-1 text-left text-base md:text-xl  xl:text-2xl font-poppins tracking-wide text-ungu-gelap' 
 

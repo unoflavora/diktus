@@ -1,5 +1,23 @@
 @tailwind base;
-@layer base {}
+@layer base {
+  img {
+    @apply inline;
+  },
+  ol {
+    @apply list-decimal list-inside;
+  },
+  table{
+    @apply border-2 border-black;
+    border-collapse: separate;
+  },
+  tr{
+    @apply border-2 border-black
+  }
+  td{
+    @apply border-2 border-black
+  }
+}
+
 @tailwind components;
 @tailwind utilities;
 

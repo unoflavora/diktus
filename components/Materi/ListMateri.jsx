@@ -12,10 +12,11 @@ export default function ListMateri({matpel, data}) {
         {data.map((object, bab) => {
         const materi = Object.keys(object)[0]
         const submateri = object[materi]
+        const matpelUpperCase = matpel.charAt(0).toUpperCase() + matpel.slice(1);
         return(
           <Link 
             key={bab}
-            href={`/latihan/materi/${encodeURIComponent(materi)}`}>
+            href={`/latihan/materi/${matpelUpperCase}/${encodeURIComponent(materi)}`}>
             <a>
               <div className='border-2 rounded-2xl p-3 px-5 
               border-gray-200 m-5 hover:bg-ungu-terang bg-white '>

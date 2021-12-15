@@ -4,7 +4,7 @@ const base = 'font-poppins flex items-center border-2 rounded-xl gap-2 p-5'
 
 export default function Materi() {
   return(
-    <div className='p-10 xl:p-44 xl:pt-20 rounded-3xl'>
+    <div className='p-10 xl:p-44 xl:pt-20 rounded-3xl w-full'>
     <h2 className='font-bold text-center text-2xl lg:text-4xl xl:text-5xl pb-5 xl:pb-20'>
       Pilih Kelompok Ujian
     </h2>
@@ -20,23 +20,20 @@ export default function Materi() {
       </a>
     </Link>
 
-    <Link href='/tryout/soshum'>
-      <a className={`${base} hover:bg-purple-100 sm:flex-col sm:justify-center sm:items-center sm:text-center`}>
+      <a className={`${base} bg-gray-100 sm:flex-col sm:justify-center sm:items-center sm:text-center`}>
           <div className='w-1/3 ml-4 sm:ml-3 lg:ml-14'>
             <Paragraph/>
           </div>
           <h3 className='font-semibold text-lg xl:text-2xl -ml-4 md:ml-0'>Sosial & Humaniora (Soshum)</h3>
       </a>
-    </Link>
 
-    <Link href='/tryout/campuran'>
-      <a className={`${base} hover:bg-purple-100 sm:flex-col sm:text-center sm:gap-3 `}>
+      <a className={`${base} bg-gray-100 sm:flex-col sm:text-center sm:gap-3 `}>
           <div className='w-1/5 ml-2 md:ml-0 sm:w-1/3'>
             <NoteBlock/>
           </div>
           <h3 className='font-semibold text-lg xl:text-2xl ml-2'>Campuran</h3>
       </a>
-    </Link>
+      
     </div>        
   </div>
   )

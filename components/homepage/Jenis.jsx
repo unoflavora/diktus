@@ -35,7 +35,7 @@ export default function Jenis() {
               icon={<ClipBoard/>}
             />
           </a>
-          <Link href='/latihan/biologi'>
+          <Link href='/latihan'>
             <a>
               <Poin fitur
                 poin='Latihan UTBK'

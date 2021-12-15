@@ -7,8 +7,7 @@ const Umum = ({metadata, updateTarget, updateTanggalTes}) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [cal, setCal] = useState(false)
 
-  const reducer = (previousValue, currentValue) => 
-    previousValue + currentValue;
+  const reducer = (previousValue, currentValue) => previousValue + currentValue
 
   function openModal() {
     setIsOpen(true);

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import Radar from './materi/Radar';
 
-const matpel = ['Biologi', 'Fisika', 'Matematika', 'Kimia', 'Penalaran']
-const Rata = () => {
+const Rata = ({listMateri}) => {
+  const matpel = Object.keys(listMateri)
   const [view, setView] = useState('Biologi')
 
   return(
@@ -28,18 +28,20 @@ const Rata = () => {
                   )}
                 </ul>
             <div className='md:hidden h-graph-s pt-10 pb-5 md:px-10 border-2 bg-white w-full md:w-5/6 xl:w-full md:rounded-2xl'>
-              <Radar matpel={view}/>
+              <Radar matpel={view} listMateri={listMateri}/>
             </div>
             </nav>
            
             <nav className='px-3 hidden md:flex w-full border-2 rounded-2xl bg-white'>
                   <ul className='flex flex-col items-center gap-5 py-5'>
                     {matpel.map(matpel => 
-                      <li className={` text-lg ${view === matpel ? 'text-ungu-gelap font-semibold border-b-2 border-ungu-gelap xl:border-0': ''}`} key={matpel}>{matpel}</li>
+                      <button 
+                        onClick={() => setView(matpel)}
+                        className={` text-lg ${view === matpel ? 'text-ungu-gelap font-semibold border-b-2 border-ungu-gelap xl:border-0': ''}`} key={matpel}>{matpel}</button>
                     )}
                   </ul>
                   <div className='md:block h-graph-s pt-10 pb-5 md:pl-10 bg-white w-full md:rounded-2xl'>
-                <Radar matpel={view}/>
+                <Radar matpel={view} listMateri={listMateri}/>
             </div>
               </nav>
 

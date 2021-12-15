@@ -1,7 +1,7 @@
 import Header from './Header'
 import Alasan from './Alasan'
 import Jenis from './Jenis'
-import Materi from './Materi'
+import Progress from './Progress'
 import Testimonials from './Testimonials'
 
 export default function Index(props) {
@@ -10,7 +10,7 @@ export default function Index(props) {
       <Header/>
       <Jenis/>
       <Alasan/>
-      <Materi/>    
+      <Progress/>    
       <Testimonials/>
     </div>
   )

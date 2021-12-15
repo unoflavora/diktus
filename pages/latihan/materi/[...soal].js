@@ -9,7 +9,7 @@ import { useXP } from '../../../components/Context/XpContext';
 export default function Materi({data}) {
   const { user, error, isLoading } = useUser();
   const router = useRouter()
-  const {materi} = router.query
+  const [mataPelajaran, materi] = router.query.soal
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
@@ -34,19 +34,22 @@ export default function Materi({data}) {
       </div>
     )
   } else {
-    router.push(`/api/auth/login?returnTo=/mata_pelajaran/materi/${materi}`)
+    router.push(`/api/auth/login?returnTo=/latihan/materi/${mataPelajaran}/${materi}`)
   }
 }
 
 export async function getServerSideProps(context) {
-  const materi = context.params.materi
+  const [mataPelajaran, materi] = context.params.soal
   const res = await fetch(
     (process.env.NODE_ENV === "production" 
     ? "https://words-aas.vercel.app/db/" 
     : "http://localhost:3000/api/") 
     + "materi/soalMateri", {
       method: 'POST',
-      body: JSON.stringify({materi}),
+      body: JSON.stringify({
+        mataPelajaran,
+        materi
+      }),
     }
   )
 

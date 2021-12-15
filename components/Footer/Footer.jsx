@@ -10,7 +10,7 @@ const items = {
 
 export default function Footer() {
   return (
-    <div className='bg-gray-100 py-10 px-10 xl:grid xl:grid-cols-3'> 
+    <footer className='mt-auto bg-gray-100 py-10 px-10 xl:grid xl:grid-cols-3'> 
       <div className='flex flex-col gap-5 xl:ml-44'>
       <Logo/>
       <div className='hidden xl:flex flex-col gap-2 font-poppins Copyright'>
@@ -52,6 +52,6 @@ export default function Footer() {
         </div>     
       </div> 
     </div>
-  </div>
+  </footer>
   )
 }

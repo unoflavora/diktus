@@ -27,7 +27,6 @@ export function XpProvider({children}) {
       }
       setMetadata(meta)      
     } catch(e) {
-      console.log(e)
     }}
 
     getXP()
@@ -48,21 +47,26 @@ export function XpProvider({children}) {
     if(user) {
       resetTargetHariIni()
     }
-  }, [user])
+  }, [user])  
 
-
-
-  
   
   const handleCorrect = () => {
-    userXP.updateXP(user.sub, (xp+100)).then(() => setXP(xp+100))
+    userXP.updateXP(user.sub, (xp+100)).then(() => setXP(xp+50))
     .catch(e => console.log(e))
   }
 
   const handleFalse = async () => {
-    userXP.updateXP(user.sub, (xp+50)).then(() => setXP(xp+50))
+    userXP.updateXP(user.sub, (xp+50)).then(() => setXP(xp+10))
     .catch(e => console.log(e))
   }
+
+  const handleTO = async () => {
+    userXP.updateXP(user.sub, (xp+1000)).then(() => setXP(xp+1000))
+    .catch(e => console.log(e))
+  }
+
+
+  
 
   const updateTarget = async (skor) => {
     userXP.updateTarget(user.sub, skor).then(() => setMetadata({...metadata, target:skor}))
@@ -79,6 +83,7 @@ export function XpProvider({children}) {
       console.log(e)
     })
   }
+
 
   const updateLatihanMingguIni = async () => {
     try {
@@ -101,10 +106,75 @@ export function XpProvider({children}) {
     }
   }
 
+  const hitungHasil = async (tipe, jawabanSiswa) => {
+    let tipeUjians = ['TPS', tipe === 'Saintek' ? 'Saintek' : 'Soshum']
+    const date = new Date()
+    const [hari, bulan, tahun] = [date.getDate(), date.getUTCMonth() + 1, date.getFullYear()]
+
+    let jawaban = {
+      TPS: {
+        'Kemampuan Penalaran Umum': 0,
+        'Pengetahuan Kuantitatif': 0,
+        'Pengetahuan dan Pemahaman Umum': 0,
+        'Kemampuan Memahami Bacaan dan Menulis': 0
+      },
+      'Kemampuan Penalaran Umum': {},
+      'Pengetahuan Kuantitatif': {},
+      'Pengetahuan dan Pemahaman Umum': {},
+      'Kemampuan Memahami Bacaan dan Menulis': {},
+      Saintek : {
+        'Matematika': 0,
+        'Fisika': 0,
+        'Kimia': 0,
+        'Biologi': 0
+      },
+      Biologi: {},
+      Fisika: {},
+      Matematika: {},
+      Kimia: {},
+
+      skor: 0,
+      tipe,
+      date: `${hari}-${bulan}-${tahun}`
+    }
+
+    jawaban['nilai'] = {...jawaban[tipe === 'Saintek' ? 'Saintek' : 'Soshum'], ...jawaban['TPS']}
+    let length = {}
+    
+    tipeUjians.map((tipeUjian) => {
+      Object.keys(jawabanSiswa[tipeUjian]).map(kode => {
+        const soal = jawabanSiswa[tipeUjian][kode]
+        if(soal.correct) {
+          jawaban[tipeUjian][soal.mataPelajaran] = jawaban[tipeUjian][soal.mataPelajaran] + 50
+          
+          soal.materi in length 
+          ? length[soal.materi]++
+          : length[soal.materi] = 1
+
+          soal.materi in jawaban[soal.mataPelajaran] 
+            ? jawaban[soal.mataPelajaran][soal.materi] =  Math.round(((jawaban[soal.mataPelajaran][soal.materi] + 1) / length[soal.materi]) * 100) / 100
+            : jawaban[soal.mataPelajaran][soal.materi] = 1
+        }  
+        return
+      })
+      return
+    })
+
+    tipeUjians.map((tipeUjian) => {
+      Object.keys(jawaban[tipeUjian]).map(matpel => jawaban.skor = jawaban.skor + jawaban[tipeUjian][matpel])
+    })
+
+    jawaban.skor = Math.round(jawaban.skor / 8)
+
+    console.log(jawaban)
+
+    await userXP.updateHasil(user.sub, tipe, jawaban)
+}
+
 
 
   return (
-    <XpContext.Provider value={{xp, setXP, metadata, updateLatihanMingguIni, handleCorrect, handleFalse, updateTarget, updateTanggalTes}}>
+    <XpContext.Provider value={{xp, setXP, handleTO, metadata, updateLatihanMingguIni, handleCorrect, handleFalse, updateTarget, updateTanggalTes, hitungHasil}}>
       {children}
     </XpContext.Provider>
   )

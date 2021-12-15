@@ -8,7 +8,8 @@ module.exports = {
         sniglet: ['Sniglet', 'cursive']
       },
       spacing:{
-        'graph-s':'30rem'
+        'graph-s':'30rem',
+        '100': '26rem'
       },
       colors: {
         ungu:{
@@ -24,5 +25,7 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms')
+  ],
 }
