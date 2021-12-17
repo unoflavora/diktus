@@ -67,9 +67,7 @@ export default function Radar(props) {
   }
 
   try {
-    console.log(props)
     const nilai = metadata[props.matpel]
-    console.log(metadata)
     const listMateri = props.listMateri[props.matpel]
     const data = {
       labels: listMateri,

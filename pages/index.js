@@ -2,7 +2,6 @@ import Head from 'next/head'
 import Homepage from '../components/homepage/Index'
 import Navbar from '../components/navbar/Navbar';
 import Footer from '../components/Footer/Footer';
-
 export default function Index() {
     return(
       <div className='overflow-hidden'>

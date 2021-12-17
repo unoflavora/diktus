@@ -7,7 +7,6 @@ export default async function handler(request, response) {
   try {
     await dbConnect()
     const data = await listMateriDB.findOne({'kelompokUjian': kelompokUjian})
-    console.log(data)
     response.status(200).json(data)
   } catch(e) {
     console.log(e)

@@ -7,7 +7,7 @@ import { RiRestTimeLine } from 'react-icons/ri'
 import Footer from "../../components/Footer/Footer"
 import Layout from "../../components/Tryout/Layout"
 import Result from "../../components/Tryout/Result/Result"
-
+import Head from "next/head"
 export default function Ketentuan({data, quotes}) {
   const router = useRouter()
   const [choosedAnswer, setChoosedAnswer] = useState({'TPS': {}, 'Saintek': {}})
@@ -26,6 +26,11 @@ export default function Ketentuan({data, quotes}) {
 
   return(
     <div className='font-poppins flex flex-col overflow-hidden min-h-screen'>
+        <Head>
+          <title>Tryout {kelompokUjianUpperCase} UTBK 2022 | Diktus: Analisis Kemampuan Kamu</title>
+          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        </Head>
+
       <Navbar/>
       {mulai ? 
         !selesai ? <Layout data={data[ujian]} 

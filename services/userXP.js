@@ -1,5 +1,26 @@
 var axios = require("axios").default;
 
+// let token
+
+// var options = {
+//   method: 'POST',
+//   url: 'https://diktus.jp.auth0.com/oauth/token',
+//   headers: {'content-type': 'application/x-www-form-urlencoded'},
+//   data: {
+//     grant_type: 'client_credentials',
+//     client_id: 'SMHHw0Bu1sLH1E25n6xh73ON3t9AcPs1',
+//     client_secret: 'BYJ9oFNYIOsiYspi8-PyOTQH72G0N1pLSKrISHDbaw0bnWcxwEn5EDACXSo6byDv',
+//     audience: 'https://diktus.jp.auth0.com/api/v2/'
+//   }
+// };
+
+// axios.request(options).then(function (response) {
+//   token = response.data;
+//   console.log(token)
+// }).catch(function (error) {
+//   console.error(error);
+// });
+
 async function get(id) {
   const options = {
     method: 'GET',

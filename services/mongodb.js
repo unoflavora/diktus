@@ -1,6 +1,6 @@
 const baseUrl =  (mode) => { 
 return (process.env.NODE_ENV === "production" 
-? "https://words-aas.vercel.app/db/" 
+? "https://www.diktus.id/api/" 
 : "http://localhost:3000/api/")
 + mode 
 }

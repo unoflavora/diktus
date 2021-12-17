@@ -17,7 +17,7 @@ export default function Testimonials() {
           <path d="M17.2559 0.885498H1.74411C0.971643 0.885498 0.490861 1.72404 0.881102 2.39069L8.63699 15.6401C9.02319 16.2998 9.97681 16.2998 10.363 15.6401L18.1189 2.39068C18.5091 1.72404 18.0284 0.885498 17.2559 0.885498Z" fill="#FFFFFF"/>
         </svg>
         <div className='py-5 -mr-5 flex w-full md:w-1/2 justify-center gap-5'>
-          <div className='rounded-full border-2 border-gray-400 bg-gray-50 h-12 w-12 xl:h-16 xl:w-16'></div>
+            <img className='rounded-full h-12 w-12 xl:h-16 xl:w-16' src='/image-zena.jpg'/>
           <div className='flex flex-col'>
             <h3 className='font-semibold text-xl xl:text-2xl'>Jane Cooper</h3>
             <p className='text-base xl:text-xl'>Siswa SMAN 8 Bandung</p>

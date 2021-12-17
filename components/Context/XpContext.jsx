@@ -3,6 +3,7 @@ import { useUser } from "@auth0/nextjs-auth0";
 import userXP from '../../services/userXP'
 import metadatas from "./metadata";
 import moment from "moment";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const XpContext = React.createContext()
 
@@ -12,8 +13,27 @@ export function useXP() {
 
 export function XpProvider({children}) {
   const {user} = useUser()
+  const { getAccessTokenSilently } = useAuth0();
+
   const [xp, setXP] = useState(0)
   const [metadata, setMetadata] = useState()
+
+  useEffect(() => {
+    const getAccessToken = async () => {
+      const domain = "diktus.jp.auth0.com";
+      try {
+        const accessToken = await getAccessTokenSilently({
+          audience: `https://${domain}/api/v2/`,
+          scope: "read:current_user",
+        })
+        console.log(accessToken)
+      } catch(e) {
+        console.log(e)
+      }
+      
+    getAccessToken()
+    }
+  }, [user])
 
   useEffect(() => {
     const getXP = async() => {
@@ -35,7 +55,6 @@ export function XpProvider({children}) {
   useEffect(() => {
     const resetTargetHariIni = async() => {      
       const diff = moment().diff(moment(metadata.today.Latihan.date, 'DD-MM-YYYY'), 'days')
-      console.log(diff)
       if (diff > 6) {
         await userXP.updateLatihan({...metadata["today"], 
                                     Latihan: {"date": metadata.today.Latihan.date, "value": 0}}, user.sub)
@@ -166,7 +185,6 @@ export function XpProvider({children}) {
 
     jawaban.skor = Math.round(jawaban.skor / 8)
 
-    console.log(jawaban)
 
     await userXP.updateHasil(user.sub, tipe, jawaban)
 }

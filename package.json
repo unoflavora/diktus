@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^1.8.0",
     "@auth0/nextjs-auth0": "^1.5.0",
     "@contentful/rich-text-html-renderer": "^15.2.0",
     "@material-tailwind/react": "0.3.4",
