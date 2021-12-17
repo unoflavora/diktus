@@ -42,7 +42,7 @@ export async function getServerSideProps(context) {
   const [mataPelajaran, materi] = context.params.soal
   const res = await fetch(
     (process.env.NODE_ENV === "production" 
-    ? "https://words-aas.vercel.app/db/" 
+    ? "https://www.diktus.id/api/" 
     : "http://localhost:3000/api/") 
     + "materi/soalMateri", {
       method: 'POST',
