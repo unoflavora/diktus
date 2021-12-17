@@ -45,13 +45,11 @@ export default function Jenis() {
             </a>
           </Link>
          
-          <a href='/popquiz'>
             <Poin fitur
               poin='Pop Quiz'
               desc='Uji kemampuan UTBK kamu dalam 5 pertanyaan dalam waktu singkat'
               icon={<Cube/>}
             />
-          </a>          
         </div>
       </div>
     </div>
