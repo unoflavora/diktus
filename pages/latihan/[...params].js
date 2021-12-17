@@ -50,7 +50,7 @@ export async function getServerSideProps(context) {
   const matpel = context.params.params[0]
   const res = await fetch(
     (process.env.NODE_ENV === "production" 
-    ? "https://www.diktus.id/api" 
+    ? "https://www.diktus.id/api/" 
     : "http://localhost:3000/api/") 
     + "materi/listMateri", {
       method: 'POST',
